@@ -20,7 +20,7 @@ export const numberToRoman = number => {
     ]);
 
     //Invalid input handling
-    if ( !Number.isInteger(number) || number <= 0){
+    if (!Number.isInteger(number) || number <= 0) {
         return "";
     }
 
@@ -32,35 +32,39 @@ export const numberToRoman = number => {
         const keys = [...numeralMap.keys()];
         let higher = keys[1];
         let lower = keys[0];
-
-        for (let i = 0; i < keys.length; i++) {
-            if (number < keys[i]) {
-                higher = keys[i];
-                if (i > 0) {
-                    lower = keys[i - 1];
-                    if (notSubtractiveNorAdditive.has(lower) && i > 1) {
-                        lower = keys[i - 2];
+        let subAddLower = keys[0];
+        if ( number < 1000){
+            for (let i = 0; i < keys.length; i++) {
+                if (number < keys[i]) {
+                    higher = keys[i];
+                    if (i > 0) {
+                        lower = keys[i - 1];
+                        subAddLower = lower;
+                        if (notSubtractiveNorAdditive.has(lower) && i > 1) {
+                            subAddLower = keys[i - 2];
+                        }
                     }
+                    break;
                 }
-                break;
-            }
-
+            }                
+        } else {
+            higher = lower = subAddLower = keys[6];
         }
 
 
         //Additive
         for (let i = 2; i < 4; i++) {
-            if (number === i * lower) {
-                return numeralMap.get(lower).repeat(i);
+            if (number === i * subAddLower) {
+                return numeralMap.get(subAddLower).repeat(i);
             }
         }
 
         //Subtractive
-        if (higher - lower === number) {
-            return `${numeralMap.get(lower)}${numeralMap.get(higher)}`;
+        if (higher - subAddLower === number) {
+            return `${numeralMap.get(subAddLower)}${numeralMap.get(higher)}`;
         }
 
-        return "-1";
+        return `${numeralMap.get(lower)}${numberToRoman(number - lower)}`;
     }
 };
 

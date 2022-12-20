@@ -21,6 +21,9 @@ import {
       expect(numberToRoman(30)).toBe("XXX");
       expect(numberToRoman(200)).toBe("CC");
       expect(numberToRoman(300)).toBe("CCC");
+      expect(numberToRoman(2000)).toBe("MM");
+      expect(numberToRoman(3000)).toBe("MMM");
+
     });  
 
     test("Test for subtractive roman numerals 4,9,40,90,400", () => {
@@ -31,6 +34,24 @@ import {
       expect(numberToRoman(400)).toBe("CD");
       expect(numberToRoman(900)).toBe("CM");
     });  
+
+    test("Test for output with multiple numerals - additive", () => {
+      expect(numberToRoman(6)).toBe("VI");
+      expect(numberToRoman(7)).toBe("VII");
+      expect(numberToRoman(8)).toBe("VIII");
+      expect(numberToRoman(11)).toBe("XI");
+      expect(numberToRoman(12)).toBe("XII");
+      expect(numberToRoman(13)).toBe("XIII");
+      expect(numberToRoman(16)).toBe("XVI");
+      expect(numberToRoman(31)).toBe("XXXI");
+      expect(numberToRoman(55)).toBe("LV");
+      expect(numberToRoman(1501)).toBe("MDI");
+      expect(numberToRoman(2700)).toBe("MMDCC");
+      expect(numberToRoman(3552)).toBe("MMMDLII");      
+    });  
+
+
+
 
     test("Test invalid numbers return empty", () => {
       expect(numberToRoman()).toBe("");
