@@ -32,6 +32,15 @@ import {
       expect(numberToRoman(900)).toBe("CM");
     });  
 
+    test("Test invalid numbers return empty", () => {
+      expect(numberToRoman()).toBe("");
+      expect(numberToRoman(0)).toBe("");
+      expect(numberToRoman(-1)).toBe("");
+      expect(numberToRoman(5.7)).toBe("");
+      expect(numberToRoman("400")).toBe("");
+      expect(numberToRoman("what")).toBe("");
+    });  
+
 
   });
 

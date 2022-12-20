@@ -18,6 +18,13 @@ export const numberToRoman = number => {
         [50, 'L'],
         [500, 'D'],
     ]);
+
+    //Invalid input handling
+    if ( !Number.isInteger(number) || number <= 0){
+        return "";
+    }
+
+    //Is a roman numeral
     if (numeralMap.has(number)) {
         return numeralMap.get(number);
     }
@@ -53,7 +60,6 @@ export const numberToRoman = number => {
             return `${numeralMap.get(lower)}${numeralMap.get(higher)}`;
         }
 
-        // either go 3 times the previous symbol or 1 minus the higher symbol
         return "-1";
     }
 };
