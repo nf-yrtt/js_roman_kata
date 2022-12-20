@@ -12,8 +12,31 @@ export const numberToRoman = number => {
         [100, 'C'],
         [500, 'D'],
         [1000, 'M'],
-      ]); 
-      return (numeralMap.get(number));
+    ]);
+    if (numeralMap.has(number)) {
+        return numeralMap.get(number);
+    }
+    else {
+        const keys = [...numeralMap.keys()];
+        let higher = keys[1];
+        let lower = keys[0];
+
+        for (let i = 0; i < keys.length; i++) {
+            if (number < keys[i]) {
+                lower = keys[i-1];
+                higher = keys[i];
+                break;
+            }
+        }
+        for (let i = 2; i < 4; i++){
+            if (number === i * lower){
+                return numeralMap.get(lower).repeat(i);
+            }
+        }        
+    // either go 3 times the previous symbol or 1 minus the higher symbol
+    return "-1";
+    }
+
 };
 
 
