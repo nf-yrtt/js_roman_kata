@@ -13,6 +13,11 @@ export const numberToRoman = number => {
         [500, 'D'],
         [1000, 'M'],
     ]);
+    const notSubtractiveNorAdditive = new Map([
+        [5, 'V'],
+        [50, 'L'],
+        [500, 'D'],
+    ]);
     if (numeralMap.has(number)) {
         return numeralMap.get(number);
     }
@@ -23,20 +28,34 @@ export const numberToRoman = number => {
 
         for (let i = 0; i < keys.length; i++) {
             if (number < keys[i]) {
-                lower = keys[i-1];
                 higher = keys[i];
+                if (i > 0) {
+                    lower = keys[i - 1];
+                    if (notSubtractiveNorAdditive.has(lower) && i > 1) {
+                        lower = keys[i - 2];
+                    }
+                }
                 break;
             }
+
         }
-        for (let i = 2; i < 4; i++){
-            if (number === i * lower){
+
+
+        //Additive
+        for (let i = 2; i < 4; i++) {
+            if (number === i * lower) {
                 return numeralMap.get(lower).repeat(i);
             }
-        }        
-    // either go 3 times the previous symbol or 1 minus the higher symbol
-    return "-1";
-    }
+        }
 
+        //Subtractive
+        if (higher - lower === number) {
+            return `${numeralMap.get(lower)}${numeralMap.get(higher)}`;
+        }
+
+        // either go 3 times the previous symbol or 1 minus the higher symbol
+        return "-1";
+    }
 };
 
 

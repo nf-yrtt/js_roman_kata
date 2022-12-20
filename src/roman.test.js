@@ -23,6 +23,16 @@ import {
       expect(numberToRoman(300)).toBe("CCC");
     });  
 
+    test("Test for subtractive roman numerals 4,9,40,90,400", () => {
+      expect(numberToRoman(4)).toBe("IV");
+      expect(numberToRoman(9)).toBe("IX");
+      expect(numberToRoman(40)).toBe("XL");
+      expect(numberToRoman(90)).toBe("XC");
+      expect(numberToRoman(400)).toBe("CD");
+      expect(numberToRoman(900)).toBe("CM");
+    });  
+
+
   });
 
   describe("romanToNumber", () => {
