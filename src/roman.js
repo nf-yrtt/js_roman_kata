@@ -29,6 +29,8 @@ export const numberToRoman = number => {
         return numeralMap.get(number);
     }
     else {
+        // Find the higher symbol, lower symbol and the subtractive or 
+        // additive lower symbol if the lower symbol is not subtractive or additive
         const keys = [...numeralMap.keys()];
         let higher = keys[1];
         let lower = keys[0];
@@ -73,6 +75,28 @@ export const numberToRoman = number => {
  * @param {String} roman
  * @returns {Number}
  */
-export const romanToNumber = roman => {
-    return -1;
+export const romanToNumber = romanNumber => {
+    const simpleNotRomanRegex = /[^IVXLCDM]+/;
+
+    if (!(typeof (romanNumber) === "string") || simpleNotRomanRegex.test(romanNumber) || romanNumber === "") {
+        return 0;
+    }
+
+    const romanMap = new Map([
+        ['I', 1],
+        ['V', 5],
+        ['X', 10],
+        ['L', 50],
+        ['C', 100],
+        ['D', 500],
+        ['M', 1000],
+    ]);
+
+    const romanNumberAr = [...romanNumber];
+    let decimalNumber = 0;
+    for (let i = 0; i < romanNumberAr.length; i++) {
+        decimalNumber += romanMap.get(romanNumberAr[i]);
+    }
+
+    return decimalNumber;
 };
