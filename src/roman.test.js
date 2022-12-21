@@ -97,4 +97,21 @@ describe("romanToNumber", () => {
     expect(romanToNumber("M")).toBe(1000);
   });
 
+  test("Test additive symbol strings", () => {
+    expect(romanToNumber("II")).toBe(2);
+    expect(romanToNumber("III")).toBe(3);
+    expect(romanToNumber("XXX")).toBe(30);
+    expect(romanToNumber("CCC")).toBe(300);
+    expect(romanToNumber("MM")).toBe(2000);
+    expect(romanToNumber("VV")).toBe(0);
+    expect(romanToNumber("LL")).toBe(0);
+    expect(romanToNumber("VVV")).toBe(0);
+    expect(romanToNumber("DDD")).toBe(0);
+    expect(romanToNumber("IIII")).toBe(0);
+    expect(romanToNumber("CCCC")).toBe(0);
+    expect(romanToNumber("XXXX")).toBe(0);
+
+  });
+
+
 });

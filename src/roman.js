@@ -13,6 +13,7 @@ export const numberToRoman = number => {
         [500, 'D'],
         [1000, 'M'],
     ]);
+
     const notSubtractiveNorAdditive = new Map([
         [5, 'V'],
         [50, 'L'],
@@ -91,6 +92,33 @@ export const romanToNumber = romanNumber => {
         ['D', 500],
         ['M', 1000],
     ]);
+
+    const notSubtractiveNorAdditive = new Map([
+        ['V', 5],
+        ['L', 50],
+        ['D', 500],
+    ]);
+
+    const subtractiveAdditive = new Map([
+        ["I", 1],
+        ["X", 10],
+        ["C", 100],
+        ["M", 1000],
+    ]);
+
+    const notSubAddKeys = [...notSubtractiveNorAdditive.keys()];
+    for (let i = 0; i < notSubAddKeys.length; i++) {
+        if (romanNumber.includes(notSubAddKeys[i].repeat(2))) {
+            return 0;
+        }
+    }
+
+    const subAddKeys = [...subtractiveAdditive.keys()];
+    for (let i = 0; i < subAddKeys.length; i++) {
+        if (romanNumber.includes(subAddKeys[i].repeat(4))) {
+            return 0;
+        }
+    }
 
     const romanNumberAr = [...romanNumber];
     let decimalNumber = 0;
