@@ -51,7 +51,7 @@ export const numberToRoman = number => {
             higher = lower = subAddLower = keys[6];
         }
 
-        // Decide whether to go with which additive or subtractive closest number
+        // Decide which additive or subtractive number to go with
         const toRet = new Map([
             [subAddLower * 2, numeralMap.get(subAddLower).repeat(2)],
             [subAddLower * 3, numeralMap.get(subAddLower).repeat(3)],
