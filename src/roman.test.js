@@ -120,6 +120,41 @@ describe("romanToNumber", () => {
     expect(romanToNumber("CM")).toBe(900);
   });
 
-  
+  test("Test for output with multiple symbols - additive", () => {
+    expect(romanToNumber("VI")).toBe(6);
+    expect(romanToNumber("VII")).toBe(7);
+    expect(romanToNumber("VIII")).toBe(8);
+    expect(romanToNumber("XI")).toBe(11);
+    expect(romanToNumber("XII")).toBe(12);
+    expect(romanToNumber("XIII")).toBe(13);
+    expect(romanToNumber("XVI")).toBe(16);
+    expect(romanToNumber("XXXI")).toBe(31);
+    expect(romanToNumber("XXXIV")).toBe(34);
+    expect(romanToNumber("LV")).toBe(55);
+    expect(romanToNumber("MDI")).toBe(1501);
+    expect(romanToNumber("MMDCC")).toBe(2700);
+    expect(romanToNumber("MMMDLII")).toBe(3552);
+    
+  });
+
+  test("Test for output with multiple symbols - mixed", () => {
+    expect(romanToNumber("XIV")).toBe(14);
+    expect(romanToNumber("XIX")).toBe(19);
+    expect(romanToNumber("XXIV")).toBe(24);
+    expect(romanToNumber("XXV")).toBe(25);
+    expect(romanToNumber("XLII")).toBe(42);
+    expect(romanToNumber("MCCLXXXVIII")).toBe(1288);
+    expect(romanToNumber("MMCCCXLVIII")).toBe(2348);
+    expect(romanToNumber("MMMCMXCIX")).toBe(3999);
+    expect(romanToNumber("XXCD")).toBe(0);
+    expect(romanToNumber("XIX")).toBe(19);
+    expect(romanToNumber("LXL")).toBe(0);
+    expect(romanToNumber("CVIV")).toBe(0);
+    expect(romanToNumber("VIV")).toBe(0);
+    
+
+  });
+
+
 
 });

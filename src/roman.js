@@ -121,17 +121,30 @@ export const romanToNumber = romanNumber => {
     }
 
     const romanNumberAr = [...romanNumber];
-    let decimalNumber = 0;
+    const decodedNumberAr = [];
     let previousSymbol = "";
     for (let i = 0; i < romanNumberAr.length; i++) {
         let currentSymbol = romanNumberAr[i];
-        decimalNumber += romanMap.get(currentSymbol);
-        if(romanMap.has(previousSymbol) && romanMap.get(currentSymbol) > romanMap.get(previousSymbol) ){
+        decodedNumberAr.push(romanMap.get(currentSymbol));
+        if (romanMap.has(previousSymbol) && romanMap.get(currentSymbol) > romanMap.get(previousSymbol)) {
             //Found a subtractive pair
-            decimalNumber = decimalNumber - (2 * romanMap.get(previousSymbol));            
+            decodedNumberAr.pop();
+            decodedNumberAr.pop();
+            decodedNumberAr.push(romanMap.get(currentSymbol) - romanMap.get(previousSymbol));
         }
         previousSymbol = currentSymbol;
     }
+    //Rejecting most invalid roman numeral strings
+    for (let i = 1; i < decodedNumberAr.length; i++) {
+        if (decodedNumberAr[i - 1] < decodedNumberAr[i]) {
+            return 0;
+        }
+    }
+    const result = decodedNumberAr.reduce((sum, num) => sum + num, 0);
 
-    return decimalNumber;
+    // Handling mildly incorrect roman numeral strings by testing whether the input string matches
+    // the output of numberToRoman. Introducing coupling between the functions :-(
+    // E.g VIV = 9 doesn't violate any rules that I could identify but the strictly correct string 
+    // should be IX. Similarly LXL = 90 = XC. I treat VIV and LXL as invalid.
+    return numberToRoman(result) === romanNumber ? result : 0;
 };
