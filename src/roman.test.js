@@ -50,14 +50,25 @@ import {
       expect(numberToRoman(3552)).toBe("MMMDLII");      
     });  
 
+    test("Test with subtractive & additive output", () => {
+      expect(numberToRoman(14)).toBe("XIV");
+      expect(numberToRoman(19)).toBe("XIX");      
+      expect(numberToRoman(24)).toBe("XXIV");
+      expect(numberToRoman(25)).toBe("XXV");
+      expect(numberToRoman(42)).toBe("XLII");
+      expect(numberToRoman(1288)).toBe("MCCLXXXVIII");
+      expect(numberToRoman(2348)).toBe("MMCCCXLVIII");
+      expect(numberToRoman(3999)).toBe("MMMCMXCIX");
+     });  
 
 
 
-    test("Test invalid numbers return empty", () => {
+    test("Test invalid numbers return empty strings", () => {
       expect(numberToRoman()).toBe("");
       expect(numberToRoman(0)).toBe("");
       expect(numberToRoman(-1)).toBe("");
       expect(numberToRoman(5.7)).toBe("");
+      expect(numberToRoman(4000)).toBe("");
       expect(numberToRoman("400")).toBe("");
       expect(numberToRoman("what")).toBe("");
     });  

@@ -20,11 +20,11 @@ export const numberToRoman = number => {
     ]);
 
     //Invalid input handling
-    if (!Number.isInteger(number) || number <= 0) {
+    if (!Number.isInteger(number) || number <= 0 || number >= 4000) {
         return "";
     }
 
-    //Is a roman numeral
+    //Is equivalent to one of the roman numeral symbols
     if (numeralMap.has(number)) {
         return numeralMap.get(number);
     }
@@ -33,7 +33,7 @@ export const numberToRoman = number => {
         let higher = keys[1];
         let lower = keys[0];
         let subAddLower = keys[0];
-        if ( number < 1000){
+        if (number < Math.max(...keys)) {
             for (let i = 0; i < keys.length; i++) {
                 if (number < keys[i]) {
                     higher = keys[i];
@@ -46,28 +46,27 @@ export const numberToRoman = number => {
                     }
                     break;
                 }
-            }                
+            }
         } else {
             higher = lower = subAddLower = keys[6];
         }
 
+        // Decide whether to go with which additive or subtractive closest number
+        const toRet = new Map([
+            [subAddLower * 2, numeralMap.get(subAddLower).repeat(2)],
+            [subAddLower * 3, numeralMap.get(subAddLower).repeat(3)],
+            [higher - subAddLower, `${numeralMap.get(subAddLower)}${numeralMap.get(higher)}`],
+            [lower, numeralMap.get(lower)],
+        ]);
 
-        //Additive
-        for (let i = 2; i < 4; i++) {
-            if (number === i * subAddLower) {
-                return numeralMap.get(subAddLower).repeat(i);
-            }
+        if (toRet.has(number)) {
+            return toRet.get(number);
+        } else {
+            let filteredToRetKey = Math.max(...[...toRet.keys()].filter(num => num < number));
+            return `${toRet.get(filteredToRetKey)}${numberToRoman(number - filteredToRetKey)}`;
         }
-
-        //Subtractive
-        if (higher - subAddLower === number) {
-            return `${numeralMap.get(subAddLower)}${numeralMap.get(higher)}`;
-        }
-
-        return `${numeralMap.get(lower)}${numberToRoman(number - lower)}`;
     }
 };
-
 
 /**
  * This function takes a roman numeral string and returns it as a number,
