@@ -61,8 +61,6 @@ describe("numberToRoman", () => {
     expect(numberToRoman(3999)).toBe("MMMCMXCIX");
   });
 
-
-
   test("Test invalid numbers return empty strings", () => {
     expect(numberToRoman()).toBe("");
     expect(numberToRoman(0)).toBe("");
@@ -113,5 +111,15 @@ describe("romanToNumber", () => {
 
   });
 
+  test("Test subtractive symbol strings", () => {
+    expect(romanToNumber("IV")).toBe(4);
+    expect(romanToNumber("IX")).toBe(9);
+    expect(romanToNumber("XL")).toBe(40);
+    expect(romanToNumber("XC")).toBe(90);
+    expect(romanToNumber("CD")).toBe(400);
+    expect(romanToNumber("CM")).toBe(900);
+  });
+
+  
 
 });

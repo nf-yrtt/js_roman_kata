@@ -122,8 +122,15 @@ export const romanToNumber = romanNumber => {
 
     const romanNumberAr = [...romanNumber];
     let decimalNumber = 0;
+    let previousSymbol = "";
     for (let i = 0; i < romanNumberAr.length; i++) {
-        decimalNumber += romanMap.get(romanNumberAr[i]);
+        let currentSymbol = romanNumberAr[i];
+        decimalNumber += romanMap.get(currentSymbol);
+        if(romanMap.has(previousSymbol) && romanMap.get(currentSymbol) > romanMap.get(previousSymbol) ){
+            //Found a subtractive pair
+            decimalNumber = decimalNumber - (2 * romanMap.get(previousSymbol));            
+        }
+        previousSymbol = currentSymbol;
     }
 
     return decimalNumber;
